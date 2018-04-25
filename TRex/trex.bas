@@ -1,32 +1,49 @@
 
+!- Clear screen and set border and backg color
+10 PRINT CHR$(147)
+20 POKE 53280,15: POKE 53281,15
 
-10 REM CLEAR SCREEN
-20 PRINT CHR$(147)
+!- Load sprite data starting from address 12800
+30 FOR X=12800 TO 12991: READ Y: POKE X,Y: NEXT X
 
-30 REM SET BORDER AND BACKG COLOR
-40 POKE 53280,15: POKE 53281,15
+!- Compute location of sprite pointer registers
+!- Most significant bit of address 53272 specify the start of screen memory
+!- in terms of pages of 1024 bytes
+!- The first register is located after the screen memory (1016 bytes)
+40 P=1016 + 1024*(PEEK(53272) AND 240)/16
 
-50 REM READ LOAD SPRITE#0 DATA
-60 FOR X=12800 TO 12991: READ Y: POKE X,Y: NEXT X
+!- Set the location of sprite data in terms of pages of 64 bytess
+50 POKE P,200
 
-70 REM SPRITE#0 POINTER
-80 P=1016 + 1024*(PEEK(53272) AND 240)/16
-90 POKE P,200: POKE 53269,1
+!- Enable sprite#0
+60 POKE 53269,PEEK(53269) OR 1
 
-100 REM SPRIE#0 IN HIGH RESOLUTION
-110 POKE 53276,PEEK(53276) AND 255
+!- Set sprite#0 in high resolution mode
+70 POKE 53276,PEEK(53276) AND 254
 
-120 REM SPRITE#0 COLOR AND WIDTH HEGHT PROPS
-130 POKE 53287,0: POKE 53271,0: POKE 53277,0
+!- Set sprite#0 color
+80 POKE 53287,0
 
-140 REM SPRITE#0 X,Y POSISTION
-150 POKE 53264,0: POKE 53248,24: POKE 53249,180
+!- Set sprite#0 dobule width and height attributes 
+90 POKE 53271,0: POKE 53277,0
+
+!- Set sprite#0 x,y position
+!- Address 53264 contains 8 flags for x values over 255
+!- Address 53248 contains sprite#0 x position (least 8 significant bits)
+!- Address 53249 contains sprite#0 y position 
+100 POKE 53264,PEEK(53264) AND 255: POKE 53248,24: POKE 53249,180
+
+
+!- Animation loop
 
 500 K=0
 510 POKE P,200+K
 520 K=K+1 : IF K=3 THEN K=0
 525 FOR T=0 TO 50 : NEXT
 530 GOTO 510
+
+!- Sprite data
+!- --------------------------------------
 
 1000 REM TREX RUNNING 1/3
 1010 DATA 000,001,254,000,003,127,000,003

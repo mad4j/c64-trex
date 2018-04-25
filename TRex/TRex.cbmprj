@@ -37,32 +37,34 @@
     </BuildEvents>
     <BuildList>
         <FileName>trex.bas</FileName>
-        <FileName>example.bas</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>234</PaddingByte>
     <AssyBinaryFileLocation />
     <SourceFiles>
         <SourceFile>
-            <Name>example.bas</Name>
+            <Name>cactus.spt</Name>
             <PrgName />
-            <FileType>1</FileType>
+            <FileType>7</FileType>
             <IncludeInBuild>True</IncludeInBuild>
             <Regions />
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>trex.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
+            <Regions>
+                <Region>86</Region>
+                <Region>118</Region>
+            </Regions>
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>

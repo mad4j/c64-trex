@@ -1,7 +1,13 @@
 
+#region "screen initialization"
+
 !- Clear screen and set border and backg color
 10 PRINT CHR$(147)
 20 POKE 53280,15: POKE 53281,15
+
+#endregion
+
+#region "sprite initialization"
 
 !- Load sprite data starting from address 12800
 30 FOR X=12800 TO 12991: READ Y: POKE X,Y: NEXT X
@@ -33,6 +39,9 @@
 !- Address 53249 contains sprite#0 y position 
 100 POKE 53264,PEEK(53264) AND 255: POKE 53248,24: POKE 53249,180
 
+#endregion
+
+#region "animation loop"
 
 !- Animation loop
 
@@ -41,6 +50,10 @@
 520 K=K+1 : IF K=3 THEN K=0
 525 FOR T=0 TO 50 : NEXT
 530 GOTO 510
+
+#endregion
+
+#region "sprite data"
 
 !- Sprite data
 !- --------------------------------------
@@ -74,3 +87,5 @@
 1240 DATA 255,192,003,255,128,001,255,000
 1250 DATA 000,254,000,000,198,000,000,098
 1260 DATA 000,000,002,000,000,003,000,000
+
+#endregion
